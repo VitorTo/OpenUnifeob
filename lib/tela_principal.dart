@@ -1,3 +1,7 @@
+// import 'dart:html';
+
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class TelaPrincipal extends StatefulWidget {
@@ -12,10 +16,257 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tela Principal"),
+        toolbarHeight: 70,
+        title: Text(
+          "OpenEducação",
+          style: TextStyle(
+            color: Color(0xff46AEF7),
+          ),
+          textAlign: TextAlign.start,
+        ),
+        backgroundColor: Colors.white,
+        shadowColor: Color(0xff46AEF7),
+        foregroundColor: Color(0xff46AEF7),
+        actions: [
+          Container(
+            alignment: Alignment.center,
+            child: const Text(
+              'Vitor',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed('/enviarvideo');
+            },
+            icon: const CircleAvatar(
+              backgroundImage: NetworkImage(
+                  "https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
+              backgroundColor: Colors.white,
+            ),
+          ),
+        ],
       ),
-      drawer: Drawer(),
-      body: Center(),
+      drawer: const Drawer(
+        backgroundColor: Color(0xff46AEF7),
+      ),
+      body: ListView(
+        children: [
+          Center(
+            child: Container(
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    children: [
+                      const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10)),
+                      const Text(
+                        'Área do aluno',
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      OutlinedButton.icon(
+                        onPressed: () {
+                          // Respond to button press
+                        },
+                        label:
+                            Text("Instruções", style: TextStyle(fontSize: 13)),
+                        icon: Icon(
+                          Icons.play_arrow,
+                          size: 20,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    children: [
+                      // Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextFormField(
+                          // scrollPadding: const EdgeInsets.all(20.0),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.all(20.0),
+                            labelText: 'O que você está procurando?',
+                            border: const OutlineInputBorder(),
+                            suffixIcon: IconButton(
+                              icon: const Icon(
+                                Icons.search,
+                                size: 30,
+                                color: Color(0xff46AEF7),
+                              ),
+                              onPressed: () {},
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10)),
+                      Column(
+                        children: [
+                          Text(
+                            'Escolher',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          Text('Selecione um curso '),
+                          Text('que você se interessou.'),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            width: 100,
+                            height: 100,
+                            child: Image.asset('assets/images/escolher.png'),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            'Assistir',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          Text('Assista ao curso'),
+                          Text('que você escolheu.'),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            width: 100,
+                            height: 100,
+                            child: Image.asset('assets/images/assistir.png'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                    ),
+                    Row(
+                      children: [
+                        Text('Vídeos',
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold)),
+                        SizedBox(
+                          width: 150,
+                        ),
+                        Text(
+                          'Filtrar',
+                          style: TextStyle(color: Color(0xff46AEF7)),
+                        ),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.filter_list,
+                              color: Color(0xff46AEF7),
+                            ))
+                      ],
+                    ),
+                  ]),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/images/figma.png',
+                            fit: BoxFit.cover,
+                          ),
+                          ListTile(
+                            title: const Text(
+                              'Como utilizar plugins no Figma',
+                            ),
+                            subtitle: Text(
+                              'Figma é um editor gráfico de vetor e prototipagem de projetos de design baseado principalmente no navegador web...',
+                              style: TextStyle(
+                                  color: Colors.black.withOpacity(0.6)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 60, 20, 20),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Você será redirecionado para uma página',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          'onde poderá descrever o seu problema.',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ButtonTheme(
+                    minWidth: 200.0,
+                    height: 80.0,
+                    child: OutlineButton(
+                      child: Text('Reportar',
+                          style: TextStyle(
+                              color: Color(0xff46AEF7), fontSize: 20)),
+                      borderSide: BorderSide(
+                        color: Color(0xff46AEF7),
+                        style: BorderStyle.solid,
+                        width: 1.8,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
