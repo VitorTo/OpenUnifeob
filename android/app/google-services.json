@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "707047580465",
+    "project_id": "vitorads-64376",
+    "storage_bucket": "vitorads-64376.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707047580465:android:2e2520d8fa2d62a9174610",
+        "android_client_info": {
+          "package_name": "com.example.openeducacao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707047580465-8m9sof20lnili9bi6tsvrtm4jlhh0jbi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8MYDTf9mzzL-3EpQugabwbA5MEYAirG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707047580465-8m9sof20lnili9bi6tsvrtm4jlhh0jbi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

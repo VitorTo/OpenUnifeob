@@ -1,81 +1,201 @@
 import 'package:flutter/material.dart';
+import 'package:openeducacao/auth_service.dart';
+import 'package:provider/provider.dart';
 
+class Loginpage extends StatefulWidget {
+  const Loginpage({Key? key}) : super(key: key);
 
-class TelaLogin extends StatefulWidget {
- const TelaLogin({Key? key}) : super(key: key);
-
- @override
- _TelaLoginState createState() => _TelaLoginState();
+  @override
+  State<Loginpage> createState() => _LoginpageState();
 }
 
-class _TelaLoginState extends State<TelaLogin> {
- String _email = "";
- String _senha = "";
+class _LoginpageState extends State<Loginpage> {
+  final formKey = GlobalKey<FormState>();
+  final email = TextEditingController();
+  final senha = TextEditingController();
 
+  bool isLogin = true;
+  late String titulo;
+  late String subtitle;
+  late String actionButton;
+  late String toggleButton;
+  bool loading = false;
 
- @override
- Widget build(BuildContext context) {
-   return Scaffold(
-     body: Center(
-       child: Container(
-         padding: EdgeInsets.all(25.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "Login",
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setFormAction(true);
+  }
+
+  setFormAction(bool acao) {
+    setState(() {
+      isLogin = acao;
+      if (isLogin) {
+        titulo = 'Login';
+        subtitle = 'Open Educação';
+        actionButton = 'Acessar';
+        toggleButton = 'Ainda não tem conta? Cadastre-se agora.';
+      } else {
+        titulo = 'Registrar';
+        subtitle = 'Open Educação';
+        actionButton = 'Registrar';
+        toggleButton = 'Voltar ao Login.';
+      }
+    });
+  }
+
+  login() async {
+    setState(() => loading = true);
+    try {
+      await context.read<AuthService>().login(email.text, senha.text);
+    } on AuthException catch (e) {
+      setState(() => loading = false);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
+    }
+  }
+
+  registrar() async {
+    setState(() => loading = true);
+    try {
+      await context.read<AuthService>().registrar(email.text, senha.text);
+    } on AuthException catch (e) {
+      setState(() => loading = false);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(top: 100),
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                alignment: Alignment.bottomCenter,
+                image: AssetImage("assets/images/back-img.png"),
+                fit: BoxFit.fill,
+              ),
             ),
-            Text(
-              "Open Educação",
-              style: TextStyle(fontSize: 30, color: Color(0xff46AEF7)),
+            child: Form(
+              key: formKey,
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 100, 20, 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              titulo,
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              subtitle,
+                              style: TextStyle(
+                                fontSize: 35,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff46AEF7),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                    child: TextFormField(
+                      controller: email,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Email',
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Informe o email corretamente';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
+                    child: TextFormField(
+                      controller: senha,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Senha',
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Informe sua senha!';
+                        } else if (value.length < 6) {
+                          return 'Sua senha deve ter no mínimo 6 caracteres';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          if (isLogin) {
+                            login();
+                          } else {
+                            registrar();
+                          }
+                        }
+                      },
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: (loading)
+                              ? [
+                                  const Padding(
+                                    padding: EdgeInsets.all(16),
+                                    child: SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  )
+                                ]
+                              : [
+                                  // const Icon(Icons.check),
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Text(
+                                      actionButton,
+                                      style: const TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                ]),
+                    ),
+                  ),
+                  TextButton(
+                      onPressed: () => setFormAction(!isLogin),
+                      child: Text(toggleButton)),
+                ],
+              ),
             ),
-            SizedBox(
-              height: 15.0,
-            ),
-            TextFormField(
-                 decoration:  InputDecoration(
-                   labelText: 'Usuário',
-                   border: OutlineInputBorder(),
-                 ),
-               ),
-                SizedBox(
-                 height: 15.5,
-               ),
-               TextFormField(
-                 decoration:  InputDecoration(
-                   labelText: 'Senha',
-                   border: OutlineInputBorder(),
-                 ),
-               ),
-                SizedBox(
-                 height: 20.0,
-               ),
-             SizedBox(height: 15.0,),
-            SizedBox(
-                 width: 360,
-                 height: 60,
-                 child: ElevatedButton(
-                   onPressed: () {
-                     Navigator.of(context).pushNamed('/principal');
-                   },
-                   child: const Text(
-                     "Login",
-                     style: TextStyle(fontSize: 20),
-                   ),
-                 ),
-               ),
-            TextButton(
-              onPressed: (){
-                      Navigator.of(context).pushNamed('/cadastro');
-                    },
-                child: Text("Registre-se")
-            ),
-            // Text(_email),
-            // Text(_senha),
-          ],
+          ),
         ),
-       ),
-     ),
-   );
- }
+      ),
+    );
+  }
 }

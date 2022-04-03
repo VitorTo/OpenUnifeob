@@ -1,8 +1,14 @@
 // import 'dart:html';
 
+// ignore_for_file: deprecated_member_use
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:openeducacao/auth_service.dart';
+import 'package:openeducacao/expansion_panel_list.dart';
+import 'package:openeducacao/expansion_title.dart';
+import 'package:provider/provider.dart';
 
 class TelaPrincipal extends StatefulWidget {
   const TelaPrincipal({Key? key}) : super(key: key);
@@ -51,9 +57,160 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
           ),
         ],
       ),
-      drawer: const Drawer(
+      //-----           ----------      INICIO DRAWER       -----------      ---------
+      drawer: Drawer(
         backgroundColor: Color(0xff46AEF7),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 150.0,
+                      width: 150.0,
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            "https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
+                        backgroundColor: Colors.white,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                    Text(
+                          'Vitor Gabriel',
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          Expansionpanel()));
+                          },
+                          icon: Icon(
+                            Icons.settings,
+                            size: 25,
+                            color: Colors.white70,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          Expansiontile()));
+                            },
+                            icon: Text("Biografia",
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white70)),
+                            label: Icon(
+                              Icons.keyboard_arrow_down,
+                              size: 35,
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 40,),
+                    Column(
+                      children: [
+                        Text(
+                          'Conquistas',
+                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        SizedBox(height: 20,),
+                        OutlinedButton.icon(
+                          icon: Text(
+                            "Explorador        ",
+                            style: TextStyle(
+                                fontSize: 20.0, color: Colors.white,),
+                          ),
+                          label: Image.asset(
+                            "assets/images/explorador.png",
+                            width: 100.0,
+                            height: 60.0,
+                          ),
+                           onPressed: () {  },
+                        ),
+                        SizedBox(height: 10,),
+                        OutlinedButton.icon(
+                          icon: Text(
+                            "Aventureiro        ",
+                            style: TextStyle(
+                                fontSize: 20.0, color: Colors.white,),
+                          ),
+                          label: Image.asset(
+                            "assets/images/aventureiro.png",
+                            width: 100.0,
+                            height: 60.0,
+                          ),
+                           onPressed: () {  },
+                        ),
+                        SizedBox(height: 10,),
+                        OutlinedButton.icon(
+                          icon: Text(
+                            "Desbravador        ",
+                            style: TextStyle(
+                                fontSize: 20.0, color: Colors.white,),
+                          ),
+                          label: Image.asset(
+                            "assets/images/desbravador.png",
+                            width: 100.0,
+                            height: 60.0,
+                          ),
+                           onPressed: () {  },
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(height: 130,),
+                    
+                  ],
+                ),
+              ),
+              OutlinedButton(
+                onPressed: () => context.read<AuthService>().logout(),
+                style: OutlinedButton.styleFrom(
+                  primary: Colors.red,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //Botão logout
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                      child: Text(
+                        'Sair do app',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
+      // -----      -------   FIM DRAWER      -----         --------
       body: ListView(
         children: [
           Center(

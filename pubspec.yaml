@@ -29,7 +29,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  # http: ^0.12.2
+  http_parser: ^4.0.0
+  firebase_core: ^1.14.0
+  firebase_database: ^9.0.9
+  firebase_auth: ^3.3.12
+  firebase_auth_web: ^3.3.10
+  provider: ^6.0.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -38,7 +44,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+    
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -63,6 +69,10 @@ flutter:
     - assets/images/escolher.png
     - assets/images/figma.png
     - assets/images/depois-video.png
+    - assets/images/explorador.png
+    - assets/images/desbravador.png
+    - assets/images/aventureiro.png
+    - assets/images/back-img.png
 
     # - assets/img-escolher.png
     # - images/a_dot_ham.jpeg
