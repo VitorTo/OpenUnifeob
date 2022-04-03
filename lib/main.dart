@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:openeducacao/auth_service.dart';
+import 'package:openeducacao/provider/google_sign_in.dart';
+import 'package:openeducacao/services/auth_service.dart';
 import 'package:openeducacao/enviar_video.dart';
 import 'package:openeducacao/tela_principal.dart';
 import 'package:openeducacao/services/auth_check.dart';
@@ -15,6 +16,8 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthService()),
+        ChangeNotifierProvider(create: (context) => GoogleSignInProvider()),
+
       ],
       child: MyApp(),
     ),

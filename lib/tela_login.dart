@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:openeducacao/auth_service.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:openeducacao/provider/google_sign_in.dart';
+import 'package:openeducacao/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
 class Loginpage extends StatefulWidget {
@@ -188,8 +190,19 @@ class _LoginpageState extends State<Loginpage> {
                     ),
                   ),
                   TextButton(
-                      onPressed: () => setFormAction(!isLogin),
-                      child: Text(toggleButton)),
+                    onPressed: () => setFormAction(!isLogin),
+                    child: Text(toggleButton),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      final provider = Provider.of<GoogleSignInProvider>(
+                          context,
+                          listen: false);
+                      provider.googleLogin();
+                    },
+                    icon: FaIcon(FontAwesomeIcons.google),
+                    label: Text('Logar com Google'),
+                  ),
                 ],
               ),
             ),

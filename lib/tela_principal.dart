@@ -4,8 +4,9 @@
 
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:openeducacao/auth_service.dart';
+import 'package:openeducacao/services/auth_service.dart';
 import 'package:openeducacao/expansion_panel_list.dart';
 import 'package:openeducacao/expansion_title.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,8 @@ class TelaPrincipal extends StatefulWidget {
 class _TelaPrincipalState extends State<TelaPrincipal> {
   @override
   Widget build(BuildContext context) {
+    // final user = FirebaseAuth.instance.currentUser!; //usa pra pegar imagem quando login google
+    
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70,
@@ -49,10 +52,11 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
             onPressed: () {
               Navigator.of(context).pushNamed('/enviarvideo');
             },
-            icon: const CircleAvatar(
-              backgroundImage: NetworkImage(
-                  "https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
-              backgroundColor: Colors.white,
+            icon: CircleAvatar(
+              radius: 20,
+              // backgroundImage: NetworkImage(user.photoURL!),
+              backgroundImage: NetworkImage("https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
+              backgroundColor: Colors.black12,
             ),
           ),
         ],
