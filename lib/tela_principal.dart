@@ -4,15 +4,19 @@
 
 import 'dart:ui';
 
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// import 'package:openeducacao/controllers/usuario_controller.dart';
+// import 'package:openeducacao/models/user_db.dart';
 import 'package:openeducacao/services/auth_service.dart';
 import 'package:openeducacao/expansion_panel_list.dart';
 import 'package:openeducacao/expansion_title.dart';
 import 'package:provider/provider.dart';
+// import 'package:openeducacao/repositor/user_repository.dart';
 
 class TelaPrincipal extends StatefulWidget {
   const TelaPrincipal({Key? key}) : super(key: key);
+
 
   @override
   _TelaPrincipalState createState() => _TelaPrincipalState();
@@ -20,9 +24,10 @@ class TelaPrincipal extends StatefulWidget {
 
 class _TelaPrincipalState extends State<TelaPrincipal> {
   @override
+    
   Widget build(BuildContext context) {
     // final user = FirebaseAuth.instance.currentUser!; //usa pra pegar imagem quando login google
-    
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70,
@@ -39,8 +44,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         actions: [
           Container(
             alignment: Alignment.center,
-            child: const Text(
-              'Vitor',
+            child: Text(
+               'vitor',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black87,

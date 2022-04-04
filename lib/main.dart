@@ -6,12 +6,10 @@ import 'package:openeducacao/enviar_video.dart';
 import 'package:openeducacao/tela_principal.dart';
 import 'package:openeducacao/services/auth_check.dart';
 import 'package:provider/provider.dart';
-// import 'package:flutter/src/services/platform_channel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   runApp(
     MultiProvider(
       providers: [

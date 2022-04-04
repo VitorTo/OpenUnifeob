@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Expansiontile extends StatelessWidget {
+  const Expansiontile({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Expansion Tile'
+          'Biografia'
         ),
       ),
       body: Padding(

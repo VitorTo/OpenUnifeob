@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 class Expansionpanel extends StatefulWidget {
+  const Expansionpanel({Key? key}) : super(key: key);
+
   Expansionpaneltate createState() =>  Expansionpaneltate();
 }
 class NewItem {
@@ -13,7 +15,7 @@ class Expansionpaneltate extends State<Expansionpanel> {
   List<NewItem> items = <NewItem>[
     NewItem(
       false, // isExpanded ?
-      'Header', // header
+      'Alterar seu perfil', // header
       Padding(
         padding: EdgeInsets.all(20.0),
         child: Column(
