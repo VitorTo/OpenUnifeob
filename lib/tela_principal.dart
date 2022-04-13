@@ -5,6 +5,7 @@
 import 'dart:ui';
 
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:openeducacao/controllers/usuario_controller.dart';
 // import 'package:openeducacao/models/user_db.dart';
@@ -26,7 +27,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
   @override
     
   Widget build(BuildContext context) {
-    // final user = FirebaseAuth.instance.currentUser!; //usa pra pegar imagem quando login google
+    final userGoogle = FirebaseAuth.instance.currentUser!; //usa pra pegar imagem quando login google
 
     return Scaffold(
       appBar: AppBar(
@@ -44,8 +45,20 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         actions: [
           Container(
             alignment: Alignment.center,
-            child: Text(
+            child: 
+            userGoogle == null 
+            ?
+            Text(
                'vitor',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+            :
+            Text(
+               userGoogle.displayName!,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black87,
@@ -57,12 +70,22 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
             onPressed: () {
               Navigator.of(context).pushNamed('/enviarvideo');
             },
-            icon: CircleAvatar(
+            icon: userGoogle == null 
+            ?
+            CircleAvatar(
               radius: 20,
               // backgroundImage: NetworkImage(user.photoURL!),
               backgroundImage: NetworkImage("https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
               backgroundColor: Colors.black12,
-            ),
+            ) 
+            :
+            CircleAvatar(
+              radius: 20,
+              backgroundImage: NetworkImage(userGoogle.photoURL!),
+              // backgroundImage: NetworkImage("https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
+              backgroundColor: Colors.black12,
+            ) 
+
           ),
         ],
       ),

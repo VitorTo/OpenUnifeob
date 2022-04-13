@@ -14,6 +14,7 @@ class Loginpage extends StatefulWidget {
 
 class _LoginpageState extends State<Loginpage> {
   final formKey = GlobalKey<FormState>();
+  final nome = TextEditingController();
   final email = TextEditingController();
   final senha = TextEditingController();
 
@@ -40,18 +41,27 @@ class _LoginpageState extends State<Loginpage> {
         subtitle = 'Open Educação';
         actionButton = 'Acessar';
         toggleButton = 'Ainda não tem conta? Cadastre-se agora.';
+
       } else {
         titulo = 'Registrar';
         subtitle = 'Open Educação';
         actionButton = 'Registrar';
         toggleButton = 'Voltar ao Login.';
+
       }
     });
   }
   insertUser(email, senha) async {
     // example: index.php?pnome=vitor&email=vitorteste@gmail.com&senha=122342
     var url = Uri.parse("https://atividadeopenunifeob.000webhostapp.com/");
-    await http.post(url, body: {'pnome': email ,'email': email, 'senha': senha});
+    await http.post(url, body: {'pnome': nome ,'email': email, 'senha': senha});
+
+  }
+
+  SelectUser(email, senha) async {
+    var urlsel = Uri.parse('https://atividadeopenunifeob.000webhostapp.com/seluser.php');
+    await http.get(urlsel, headers: {'email': email, 'senha': senha} );
+    
   }
   login() async {
     setState(() => loading = true);
@@ -120,6 +130,7 @@ class _LoginpageState extends State<Loginpage> {
                       ],
                     ),
                   ),
+
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
                     child: TextFormField(
@@ -157,6 +168,13 @@ class _LoginpageState extends State<Loginpage> {
                       },
                     ),
                   ),
+                  // if (formKey.currentState!.validate()) {
+                  //         if (isLogin) {
+                  //           login();
+                  //         } else {
+                  //           registrar();
+                  //         }
+                  //       },
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: ElevatedButton(
@@ -182,7 +200,7 @@ class _LoginpageState extends State<Loginpage> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                  )
+                                  ),
                                 ]
                               : [
                                   // const Icon(Icons.check),

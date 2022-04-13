@@ -16,7 +16,7 @@
 //           'http://192.168.1.10/api-mobile/Controller/?id=1'),
 //     );
 //     if (response.statusCode != 200) throw Exception('Falha na comunicação com API');
-//     var jsonbody = json.decode(response.body);
+//     var jsonbody[1][email] = json.decode(response.body);
 //     for (var db in jsonbody) {
 //         UsuarioModel obj = new UsuarioModel.fromJson(db['id'], db['nome'], db['email'] );
 //         UsuarioModel.add(obj);
@@ -55,28 +55,27 @@
 // // class Usuario {
 // selectNome() async {
     
-// var response = await http.post("https://atividadeopenunifeob.000webhostapp.com/index.php?pnome=vitor&email=vitorteste@gmail.com&senha=122342",
+// var response = await http.get("https://atividadeopenunifeob.000webhostapp.com/controller/select.php?",
 //                 body: {'email': _email, 'senha': _password}
 //                 );
+
+//   if (response.statusCode != 200) throw Exception('Falha na comunicação com API');
+//     var listdart = json.decode(response.body);
+
+//     final resposta = await dio.get(url);
+//     final list = response.data as List;
+
+//     List<UsuarioModel> usuarios = [];
+
+//     for (var json in list) {
+//       final user = UsuarioModel.fromJson(json); 
+//       usuarios.add(user);
+//     }
+
+//     print(list);
+    
+//     // return _nome;
+    
 // }
-// //     if (response.statusCode != 200) throw Exception('Falha na comunicação com API');
-// //     // var listdart = json.decode(response.body);
-
-// //     // final resposta = await dio.get(url);
-// //     final list = response.data as List;
-
-// //     List<UsuarioModel> usuarios = [];
-
-// //     for (var json in list) {
-// //       final user = UsuarioModel.fromJson(json); 
-// //       usuarios.add(user);
-// //     }
-
-// //     print(list);
-    
-// //     // return _nome;
-    
-// //   }
 
 
-// // }
