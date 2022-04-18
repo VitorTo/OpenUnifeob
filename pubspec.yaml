@@ -75,11 +75,13 @@ flutter:
     - assets/images/escolher.png
     - assets/images/figma.png
     - assets/images/depois-video.png
+    - assets/images/final-video.png
     - assets/images/explorador.png
     - assets/images/desbravador.png
     - assets/images/aventureiro.png
     - assets/images/back-img.png
     - assets/images/user.png
+    - assets/images/inicial.png
 
     # - assets/img-escolher.png
     # - images/a_dot_ham.jpeg

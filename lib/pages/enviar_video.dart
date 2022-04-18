@@ -2,7 +2,9 @@
 
 // import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:openeducacao/parts/drawer_menu.dart';
 
 class EnviarVideo extends StatefulWidget {
   const EnviarVideo({Key? key}) : super(key: key);
@@ -14,15 +16,22 @@ class EnviarVideo extends StatefulWidget {
 class _EnviarVideoState extends State<EnviarVideo> {
   @override
   Widget build(BuildContext context) {
+    final userGoogle = FirebaseAuth.instance.currentUser!;
+    final nomeUser = userGoogle.displayName!.split(" ");
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70,
-        title: Text(
-          "OpenEducação",
-          style: TextStyle(
-            color: Color(0xff46AEF7),
+        title: TextButton(
+          style: TextButton.styleFrom(
+            alignment: Alignment.centerLeft,
+            primary: Color(0xff46AEF7),
+            textStyle: TextStyle(fontSize: 19, fontWeight: FontWeight.bold,),
           ),
-          textAlign: TextAlign.start,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('OpenEducação'),
         ),
         backgroundColor: Colors.white,
         shadowColor: Color(0xff46AEF7),
@@ -30,28 +39,43 @@ class _EnviarVideoState extends State<EnviarVideo> {
         actions: [
           Container(
             alignment: Alignment.center,
-            child: const Text(
-              'Vitor',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: userGoogle == null
+                ? Text(
+                    'seu nome',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                : Text(
+                    nomeUser[0],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
           ),
           IconButton(
-            onPressed: () {},
-            icon: const CircleAvatar(
-              backgroundImage: NetworkImage(
-                  "https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
-              backgroundColor: Colors.white,
-            ),
-          ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: userGoogle == null
+                  ? CircleAvatar(
+                      radius: 20,
+                      backgroundImage: NetworkImage(
+                          "https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
+                      backgroundColor: Colors.black12,
+                    )
+                  : CircleAvatar(
+                      radius: 20,
+                      backgroundImage: NetworkImage(userGoogle.photoURL!),
+                      backgroundColor: Colors.black12,
+                    )),
         ],
       ),
-      drawer: const Drawer(
-        backgroundColor: Color(0xff46AEF7),
-      ),
+      drawer: DrawerMenu(),
       body: ListView(
         children: [
           Center(

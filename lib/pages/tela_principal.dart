@@ -5,19 +5,21 @@
 import 'dart:ui';
 
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:openeducacao/controllers/usuario_controller.dart';
-// import 'package:openeducacao/models/user_db.dart';
+import 'package:openeducacao/provider/google_sign_in.dart';
 import 'package:openeducacao/services/auth_service.dart';
-import 'package:openeducacao/expansion_panel_list.dart';
-import 'package:openeducacao/expansion_title.dart';
-import 'package:provider/provider.dart';
+import 'package:openeducacao/pages/expansion_panel_list.dart';
+import 'package:openeducacao/pages/expansion_title.dart';
+import 'package:openeducacao/parts/drawer_menu.dart';
+import 'package:openeducacao/parts/appbar_menu.dart';
+
+// import 'parts/appbar_menu.dart';
 // import 'package:openeducacao/repositor/user_repository.dart';
 
 class TelaPrincipal extends StatefulWidget {
   const TelaPrincipal({Key? key}) : super(key: key);
-
 
   @override
   _TelaPrincipalState createState() => _TelaPrincipalState();
@@ -25,231 +27,74 @@ class TelaPrincipal extends StatefulWidget {
 
 class _TelaPrincipalState extends State<TelaPrincipal> {
   @override
-    
   Widget build(BuildContext context) {
-    final userGoogle = FirebaseAuth.instance.currentUser!; //usa pra pegar imagem quando login google
+    final userGoogle = FirebaseAuth
+        .instance.currentUser!; //usa pra pegar imagem quando login google
+    final nomeUser = userGoogle.displayName!.split(" ");
 
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70,
-        title: Text(
-          "OpenEducação",
-          style: TextStyle(
-            color: Color(0xff46AEF7),
+        title: TextButton(
+          style: TextButton.styleFrom(
+            // alignment: Alignment.,
+            primary: Color(0xff46AEF7),
+            textStyle: TextStyle(
+              fontSize: 19,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          textAlign: TextAlign.start,
+          onPressed: () {},
+          child: Text('OpenEducação'),
         ),
         backgroundColor: Colors.white,
         shadowColor: Color(0xff46AEF7),
         foregroundColor: Color(0xff46AEF7),
         actions: [
           Container(
-            alignment: Alignment.center,
-            child: 
-            userGoogle == null 
-            ?
-            Text(
-               'vitor',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-              ),
-            )
-            :
-            Text(
-               userGoogle.displayName!,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            alignment: Alignment.centerLeft,
+            child: userGoogle == null
+                ? Text(
+                    'seu nome',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                : Text(
+                    nomeUser[0],
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
           ),
           IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed('/enviarvideo');
-            },
-            icon: userGoogle == null 
-            ?
-            CircleAvatar(
-              radius: 20,
-              // backgroundImage: NetworkImage(user.photoURL!),
-              backgroundImage: NetworkImage("https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
-              backgroundColor: Colors.black12,
-            ) 
-            :
-            CircleAvatar(
-              radius: 20,
-              backgroundImage: NetworkImage(userGoogle.photoURL!),
-              // backgroundImage: NetworkImage("https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
-              backgroundColor: Colors.black12,
-            ) 
-
-          ),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/enviarvideo');
+              },
+              icon: userGoogle == null
+                  ? CircleAvatar(
+                      radius: 20,
+                      backgroundImage: NetworkImage(
+                          "https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
+                      backgroundColor: Colors.black12,
+                    )
+                  : CircleAvatar(
+                      radius: 20,
+                      backgroundImage: NetworkImage(userGoogle.photoURL!),
+                      backgroundColor: Colors.black12,
+                    )),
         ],
       ),
-      //-----           ----------      INICIO DRAWER       -----------      ---------
-      drawer: Drawer(
-        backgroundColor: Color(0xff46AEF7),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-          child: ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 150.0,
-                      width: 150.0,
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            "https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
-                        backgroundColor: Colors.white,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                    Text(
-                          'Vitor Gabriel',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          Expansionpanel()));
-                          },
-                          icon: Icon(
-                            Icons.settings,
-                            size: 25,
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: OutlinedButton.icon(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          Expansiontile()));
-                            },
-                            icon: Text("Biografia",
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white70)),
-                            label: Icon(
-                              Icons.keyboard_arrow_down,
-                              size: 35,
-                              color: Colors.white70,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 40,),
-                    Column(
-                      children: [
-                        Text(
-                          'Conquistas',
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-                        ),
-                        SizedBox(height: 20,),
-                        OutlinedButton.icon(
-                          icon: Text(
-                            "Explorador        ",
-                            style: TextStyle(
-                                fontSize: 20.0, color: Colors.white,),
-                          ),
-                          label: Image.asset(
-                            "assets/images/explorador.png",
-                            width: 100.0,
-                            height: 60.0,
-                          ),
-                           onPressed: () {  },
-                        ),
-                        SizedBox(height: 10,),
-                        OutlinedButton.icon(
-                          icon: Text(
-                            "Aventureiro        ",
-                            style: TextStyle(
-                                fontSize: 20.0, color: Colors.white,),
-                          ),
-                          label: Image.asset(
-                            "assets/images/aventureiro.png",
-                            width: 100.0,
-                            height: 60.0,
-                          ),
-                           onPressed: () {  },
-                        ),
-                        SizedBox(height: 10,),
-                        OutlinedButton.icon(
-                          icon: Text(
-                            "Desbravador        ",
-                            style: TextStyle(
-                                fontSize: 20.0, color: Colors.white,),
-                          ),
-                          label: Image.asset(
-                            "assets/images/desbravador.png",
-                            width: 100.0,
-                            height: 60.0,
-                          ),
-                           onPressed: () {  },
-                        ),
-
-                      ],
-                    ),
-                    SizedBox(height: 130,),
-                    
-                  ],
-                ),
-              ),
-              OutlinedButton(
-                onPressed: () => context.read<AuthService>().logout(),
-                style: OutlinedButton.styleFrom(
-                  primary: Colors.red,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    //Botão logout
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
-                      child: Text(
-                        'Sair do app',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      // -----      -------   FIM DRAWER      -----         --------
+      drawer: DrawerMenu(), // importado
       body: ListView(
         children: [
           Center(
             child: Container(
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   const SizedBox(
                     height: 30,
@@ -270,7 +115,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       ),
                       OutlinedButton.icon(
                         onPressed: () {
-                          // Respond to button press
+                          Navigator.of(context).pushNamed('/inicial');
                         },
                         label:
                             Text("Instruções", style: TextStyle(fontSize: 13)),
@@ -286,11 +131,9 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                   ),
                   Column(
                     children: [
-                      // Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0)),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: TextFormField(
-                          // scrollPadding: const EdgeInsets.all(20.0),
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(20.0),
                             labelText: 'O que você está procurando?',
@@ -313,8 +156,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                   ),
                   Row(
                     children: [
-                      Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10)),
+                      Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
                       Column(
                         children: [
                           Text(
@@ -408,6 +250,16 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                               style: TextStyle(
                                   color: Colors.black.withOpacity(0.6)),
                             ),
+                          ),
+                          FlatButton(
+                            textColor: Color(0xFF6200EE),
+                            onPressed: () {
+                              // Perform some action
+                            },
+                            child: Text('Assitir'),
+                          ),
+                          SizedBox(
+                            height: 10,
                           ),
                         ],
                       ),

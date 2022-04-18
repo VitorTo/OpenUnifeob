@@ -60,9 +60,10 @@ class _LoginpageState extends State<Loginpage> {
 
   SelectUser(email, senha) async {
     var urlsel = Uri.parse('https://atividadeopenunifeob.000webhostapp.com/seluser.php');
-    await http.get(urlsel, headers: {'email': email, 'senha': senha} );
+    await http.get(urlsel, headers: {'email': email} );
     
   }
+  
   login() async {
     setState(() => loading = true);
     try {

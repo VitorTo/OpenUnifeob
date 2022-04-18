@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:openeducacao/tela_login.dart';
-import 'package:openeducacao/tela_principal.dart';
+import 'package:openeducacao/pages/tela_login.dart';
+import 'package:openeducacao/pages/tela_principal.dart';
 import 'package:openeducacao/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
