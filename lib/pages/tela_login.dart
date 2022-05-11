@@ -52,16 +52,11 @@ class _LoginpageState extends State<Loginpage> {
     });
   }
   insertUser(email, senha) async {
-    // example: index.php?pnome=vitor&email=vitorteste@gmail.com&senha=122342
+    // EXEMPLO: index.php?pnome=vitor&email=vitorteste@gmail.com&senha=122342
     var url = Uri.parse("https://atividadeopenunifeob.000webhostapp.com/");
-    await http.post(url, body: {'pnome': nome ,'email': email, 'senha': senha});
+    await http.post(url, body: {'pnome': email ,'email': email, 'senha': senha});
+    //JOGAR ESSAS VARIAVEIS PARA TELA PRINCIPAL
 
-  }
-
-  SelectUser(email, senha) async {
-    var urlsel = Uri.parse('https://atividadeopenunifeob.000webhostapp.com/seluser.php');
-    await http.get(urlsel, headers: {'email': email} );
-    
   }
   
   login() async {
@@ -221,9 +216,7 @@ class _LoginpageState extends State<Loginpage> {
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
-                      final provider = Provider.of<GoogleSignInProvider>(
-                          context,
-                          listen: false);
+                      final provider = Provider.of<GoogleSignInProvider>( context, listen: false);
                       provider.googleLogin();
                     },
                     icon: FaIcon(FontAwesomeIcons.google),

@@ -9,7 +9,12 @@ class DetalhesVideo extends StatefulWidget {
   State<DetalhesVideo> createState() => _DetalhesVideoState();
 }
 
+String titulo = "Como fazer clone do YOUTUBE";
+String idVideo = "Gm8QuYvOTwE";
+String imagemId ='https://img.youtube.com/vi/$idVideo/0.jpg';
+
 class _DetalhesVideoState extends State<DetalhesVideo> {
+
   @override
   Widget build(BuildContext context) {
     final userGoogle = FirebaseAuth.instance.currentUser!;
@@ -136,8 +141,8 @@ class _DetalhesVideoState extends State<DetalhesVideo> {
                               clipBehavior: Clip.antiAlias,
                               child: Column(
                                 children: [
-                                  Image.asset(
-                                    'assets/images/figma.png',
+                                  Image.network(
+                                    imagemId,
                                     fit: BoxFit.cover,
                                   ),
                                 ],
@@ -242,7 +247,9 @@ class _DetalhesVideoState extends State<DetalhesVideo> {
                               height: 15,
                             ),
                             ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed('/visualizarvideo');
+                                },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

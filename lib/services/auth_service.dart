@@ -9,7 +9,6 @@ class AuthException implements Exception {
 
 }
 
-
 class AuthService extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 

@@ -2,9 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:openeducacao/parts/drawer_menu.dart';
 
+import '../feed/feed_youtube.dart';
+import '../feed/ifeed.dart';
+
+String titulo = "TEsteand";
+String idVideo = "Gm8QuYvOTwE";
 class TelaVideo extends StatefulWidget {
   const TelaVideo({Key? key}) : super(key: key);
-
   @override
   State<TelaVideo> createState() => _TelaVideoState();
 }
@@ -14,6 +18,7 @@ class _TelaVideoState extends State<TelaVideo> {
   Widget build(BuildContext context) {
     final userGoogle = FirebaseAuth.instance.currentUser!;
     final nomeUser = userGoogle.displayName!.split(" ");
+
 
     return Scaffold(
       appBar: AppBar(
@@ -133,17 +138,7 @@ class _TelaVideoState extends State<TelaVideo> {
                             SizedBox(
                               height: 15.0,
                             ),
-                            Card(
-                              clipBehavior: Clip.antiAlias,
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/figma.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ],
-                              ),
-                            ),
+                            FeedYoutube(text: titulo , videoId: idVideo ).render(),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                               child: Column(
@@ -183,5 +178,7 @@ class _TelaVideoState extends State<TelaVideo> {
         ],
       ),
     );
+ 
   }
+
 }

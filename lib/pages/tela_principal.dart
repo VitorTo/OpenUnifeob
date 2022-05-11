@@ -11,12 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:openeducacao/provider/google_sign_in.dart';
 import 'package:openeducacao/services/auth_service.dart';
 import 'package:openeducacao/pages/expansion_panel_list.dart';
-import 'package:openeducacao/pages/expansion_title.dart';
+import 'package:openeducacao/pages/tela_perfil.dart';
 import 'package:openeducacao/parts/drawer_menu.dart';
 import 'package:openeducacao/parts/appbar_menu.dart';
 
-// import 'parts/appbar_menu.dart';
-// import 'package:openeducacao/repositor/user_repository.dart';
+import '../feed/feed_page.dart';
 
 class TelaPrincipal extends StatefulWidget {
   const TelaPrincipal({Key? key}) : super(key: key);
@@ -25,12 +24,14 @@ class TelaPrincipal extends StatefulWidget {
   _TelaPrincipalState createState() => _TelaPrincipalState();
 }
 
+
 class _TelaPrincipalState extends State<TelaPrincipal> {
+
   @override
   Widget build(BuildContext context) {
-    final userGoogle = FirebaseAuth
-        .instance.currentUser!; //usa pra pegar imagem quando login google
-    final nomeUser = userGoogle.displayName!.split(" ");
+    final userGoogle = FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser! : null; //usa pra pegar imagem quando login google
+    // ignore: unnecessary_null_comparison
+    final nomeUser = userGoogle == null ? null : userGoogle.displayName!.split(" ");
 
     return Scaffold(
       appBar: AppBar(
@@ -53,44 +54,30 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         actions: [
           Container(
             alignment: Alignment.centerLeft,
-            child: userGoogle == null
-                ? Text(
-                    'seu nome',
+            child: Text(
+                    nomeUser == null ? 'seu nome': nomeUser[0],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
                     ),
                   )
-                : Text(
-                    nomeUser[0],
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                
           ),
           IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/enviarvideo');
+                Navigator.push( context, MaterialPageRoute(builder: (BuildContext context) => TelaPerfil()));
               },
-              icon: userGoogle == null
-                  ? CircleAvatar(
+              icon: CircleAvatar(
                       radius: 20,
-                      backgroundImage: NetworkImage(
-                          "https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
-                      backgroundColor: Colors.black12,
-                    )
-                  : CircleAvatar(
-                      radius: 20,
-                      backgroundImage: NetworkImage(userGoogle.photoURL!),
+                      backgroundImage: NetworkImage(userGoogle == null ? "https://freesvg.org/img/abstract-user-flat-3.png" : userGoogle.photoURL! ),//PODE COLOCAR DENTRO
                       backgroundColor: Colors.black12,
                     )),
         ],
       ),
       drawer: DrawerMenu(), // importado
-      body: ListView(
+      body: 
+      ListView(
         children: [
           Center(
             child: Container(
@@ -231,40 +218,9 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                   SizedBox(
                     height: 20,
                   ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: Card(
-                      clipBehavior: Clip.antiAlias,
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'assets/images/figma.png',
-                            fit: BoxFit.cover,
-                          ),
-                          ListTile(
-                            title: const Text(
-                              'Como utilizar plugins no Figma',
-                            ),
-                            subtitle: Text(
-                              'Figma é um editor gráfico de vetor e prototipagem de projetos de design baseado principalmente no navegador web...',
-                              style: TextStyle(
-                                  color: Colors.black.withOpacity(0.6)),
-                            ),
-                          ),
-                          FlatButton(
-                            textColor: Color(0xFF6200EE),
-                            onPressed: () {
-                              // Perform some action
-                            },
-                            child: Text('Assitir'),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  //CARD ESTÀ AQUI
+                  FeedPage(),
+                  //CARD ESTÀ AQUI
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 60, 20, 20),
                     child: Column(
@@ -311,3 +267,4 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     );
   }
 }
+

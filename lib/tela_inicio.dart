@@ -56,7 +56,9 @@ class _InicioPageState extends State<InicioPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FaIcon(FontAwesomeIcons.google),
-                        SizedBox(width: 15,),
+                        SizedBox(
+                          width: 15,
+                        ),
                         Text(
                           'Login com Google',
                           style:
@@ -68,10 +70,14 @@ class _InicioPageState extends State<InicioPage> {
                     style: BorderStyle.solid,
                     width: 1,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/authcheck');
+                  },
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               // button login email
               SizedBox(
                 width: 360,
@@ -79,21 +85,26 @@ class _InicioPageState extends State<InicioPage> {
                 child: OutlineButton(
                   splashColor: Color(0xff46AEF7),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      FaIcon(FontAwesomeIcons.envelope),
-                        SizedBox(width: 15,),
-                      Text('Login com Gmail',
-                    style: TextStyle(color: Color(0xff46AEF7), fontSize: 18),
-                  ),
-                    ]
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FaIcon(FontAwesomeIcons.envelope),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          'Login com Gmail',
+                          style:
+                              TextStyle(color: Color(0xff46AEF7), fontSize: 18),
+                        ),
+                      ]),
                   borderSide: BorderSide(
                     color: Color(0xff46AEF7),
                     style: BorderStyle.solid,
                     width: 1,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/authcheck');
+                  },
                 ),
               ),
             ],
