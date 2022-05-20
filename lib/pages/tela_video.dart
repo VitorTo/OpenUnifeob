@@ -5,10 +5,17 @@ import 'package:openeducacao/parts/drawer_menu.dart';
 import '../feed/feed_youtube.dart';
 import '../feed/ifeed.dart';
 
-String titulo = "TEsteand";
-String idVideo = "Gm8QuYvOTwE";
 class TelaVideo extends StatefulWidget {
-  const TelaVideo({Key? key}) : super(key: key);
+  String link;
+  String titulo;
+  String descricao;
+
+  TelaVideo(
+      {Key? key,
+      required this.link,
+      required this.titulo,
+      required this.descricao})
+      : super(key: key);
   @override
   State<TelaVideo> createState() => _TelaVideoState();
 }
@@ -18,7 +25,6 @@ class _TelaVideoState extends State<TelaVideo> {
   Widget build(BuildContext context) {
     final userGoogle = FirebaseAuth.instance.currentUser!;
     final nomeUser = userGoogle.displayName!.split(" ");
-
 
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +59,7 @@ class _TelaVideoState extends State<TelaVideo> {
                     ),
                   )
                 : Text(
-                    nomeUser[0] + ' ' + nomeUser[1],
+                    nomeUser[0],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black87,
@@ -69,7 +75,7 @@ class _TelaVideoState extends State<TelaVideo> {
                   ? CircleAvatar(
                       radius: 20,
                       backgroundImage: NetworkImage(
-                          "https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
+                          "https://freesvg.org/img/abstract-user-flat-3.png"),
                       backgroundColor: Colors.black12,
                     )
                   : CircleAvatar(
@@ -97,31 +103,20 @@ class _TelaVideoState extends State<TelaVideo> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 20, right: 20),
-                              child: Text(
-                                'titulo do vídeo quando insere muitas linhas ele joga para baixo automaticamente.',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
+                                padding: EdgeInsets.only(left: 20, right: 20),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      widget.titulo,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ],
+                                )),
                             SizedBox(
                               height: 7,
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: 20, right: 5),
-                                  child: Text(
-                                    'Por',
-                                  ),
-                                ),
-                                Text(
-                                  'Vitor Gabriel',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
                             ),
                           ],
                         ),
@@ -138,18 +133,34 @@ class _TelaVideoState extends State<TelaVideo> {
                             SizedBox(
                               height: 15.0,
                             ),
-                            FeedYoutube(text: titulo , videoId: idVideo ).render(),
+                            // COLOCAR DADOS AQUI PLAYER
+                            FeedYoutube(
+                                    text: widget.titulo, videoId: widget.link).render(),
+                            // COLOCAR DADOS AQUI PLAYER
                             Padding(
                               padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                               child: Column(
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                      // crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Text(
-                                    'Bons Estudos!',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                  Column(
+                                      // mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.only(left: 20, right: 5),
+                                        child: Text(widget.descricao),
+                                      ),
+                                      // Text(
+                                      //   'Vitor Gabriel', //nome do criador de conteudo
+                                      //   style: TextStyle(
+                                      //       fontWeight: FontWeight.bold),
+                                      // ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -159,6 +170,11 @@ class _TelaVideoState extends State<TelaVideo> {
                       ),
                       Column(
                         children: [
+                          SizedBox(height: 20,),
+                          Text(
+                            'Bons Estudos!',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                           Container(
                             width: 360,
                             height: 360,
@@ -178,7 +194,5 @@ class _TelaVideoState extends State<TelaVideo> {
         ],
       ),
     );
- 
   }
-
 }

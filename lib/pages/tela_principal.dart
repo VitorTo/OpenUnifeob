@@ -15,7 +15,7 @@ import 'package:openeducacao/pages/tela_perfil.dart';
 import 'package:openeducacao/parts/drawer_menu.dart';
 import 'package:openeducacao/parts/appbar_menu.dart';
 
-import '../feed/feed_page.dart';
+import 'api/build_list_view.dart';
 
 class TelaPrincipal extends StatefulWidget {
   const TelaPrincipal({Key? key}) : super(key: key);
@@ -219,7 +219,11 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     height: 20,
                   ),
                   //CARD ESTÀ AQUI
-                  FeedPage(),
+                  Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: BuildListView(),
+                  
+                  ),
+                  // FeedPage(),
                   //CARD ESTÀ AQUI
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 60, 20, 20),

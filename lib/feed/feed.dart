@@ -26,11 +26,8 @@ class Feed implements IFeed {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(text, style: TextStyle(fontWeight: FontWeight.bold),),
-        ),
-        renderBottom(),
+        
+        
       ],
     );
   }

@@ -5,6 +5,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:openeducacao/parts/drawer_menu.dart';
+import 'package:http/http.dart' as http;
+
 
 class EnviarVideo extends StatefulWidget {
   const EnviarVideo({Key? key}) : super(key: key);
@@ -14,6 +16,49 @@ class EnviarVideo extends StatefulWidget {
 }
 
 class _EnviarVideoState extends State<EnviarVideo> {
+  final formKey = GlobalKey<FormState>();
+  final titulo = TextEditingController();
+  final descricao = TextEditingController();
+  final conteudo = TextEditingController();
+  final url = TextEditingController();
+
+  bool isInsertVideo = true;
+  late String actionButton;
+  bool loading = false;
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setFormAction(true);
+  }
+
+  setFormAction(bool acao) {
+    setState(() {
+      isInsertVideo = acao;
+      if (isInsertVideo) {
+        actionButton = 'video';
+      } 
+    });
+  }
+  insertVideo(titulo, descricao, conteudo, url) async {
+    // EXEMPLO: index.php?pnome=vitor&email=vitorteste@gmail.com&senha=122342
+    var url = Uri.parse("https://atividadeopenunifeob.000webhostapp.com/invideo.php");
+    await http.post(url, body: {'titulo': titulo ,'detalhes': descricao, 'conteudo': conteudo, 'url': url});
+    //JOGAR ESSAS VARIAVEIS PARA TELA PRINCIPAL
+
+  }
+
+  video() async {
+    setState(() => loading = true);
+    try {
+      insertVideo(titulo.text, descricao.text, conteudo.text, url.text);
+
+    }  catch (e) {
+      setState(() => loading = false);
+      
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final userGoogle = FirebaseAuth.instance.currentUser!;
@@ -41,7 +86,7 @@ class _EnviarVideoState extends State<EnviarVideo> {
             alignment: Alignment.center,
             child: userGoogle == null
                 ? Text(
-                    'seu nome',
+                    'Nome indefinido',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black87,
@@ -65,7 +110,7 @@ class _EnviarVideoState extends State<EnviarVideo> {
                   ? CircleAvatar(
                       radius: 20,
                       backgroundImage: NetworkImage(
-                          "https://4.bp.blogspot.com/-Jx21kNqFSTU/UXemtqPhZCI/AAAAAAAAh74/BMGSzpU6F48/s1600/funny-cat-pictures-047-001.jpg"),
+                          "https://freesvg.org/img/abstract-user-flat-3.png"),
                       backgroundColor: Colors.black12,
                     )
                   : CircleAvatar(
@@ -148,6 +193,12 @@ class _EnviarVideoState extends State<EnviarVideo> {
                                 labelText: 'Titulo',
                                 border: OutlineInputBorder(),
                               ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Informe o titulo do seu vídeo!';
+                                }
+                                return null;
+                              },
                             ),
                             const SizedBox(
                               height: 15.5,
@@ -157,6 +208,12 @@ class _EnviarVideoState extends State<EnviarVideo> {
                                 labelText: 'Descrição',
                                 border: OutlineInputBorder(),
                               ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Informe a descrição do seu vídeo!';
+                                }
+                                return null;
+                              },
                             ),
                             const SizedBox(
                               height: 15.5,
@@ -166,6 +223,12 @@ class _EnviarVideoState extends State<EnviarVideo> {
                                 labelText: 'O que as pessoas vão aprender',
                                 border: OutlineInputBorder(),
                               ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Informe o conteúdo do seu vídeo!';
+                                }
+                                return null;
+                              },
                             ),
                             const SizedBox(
                               height: 15.5,
@@ -175,6 +238,12 @@ class _EnviarVideoState extends State<EnviarVideo> {
                                 labelText: 'URL do Vídeo do YouTube',
                                 border: OutlineInputBorder(),
                               ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Informe o link do seu vídeo!';
+                                }
+                                return null;
+                              },
                             ),
                             const SizedBox(
                               height: 15.5,
@@ -184,6 +253,12 @@ class _EnviarVideoState extends State<EnviarVideo> {
                               height: 60,
                               child: ElevatedButton(
                                 onPressed: () {
+                                  // if (formKey.currentState!.validate()) {
+                                  //   if (isInsertVideo) {
+                                  //     video();
+                                  //   }
+                                  // }
+                                  
                                   Navigator.of(context).pushNamed('/principal');
                                 },
                                 child: const Text(

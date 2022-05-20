@@ -25,7 +25,7 @@ class DrawerMenu extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-            Icon( Icons.home, color: Colors.white, size: 30,),
+            Icon( Icons.home_outlined, color: Colors.white, size: 30,),
             TextButton(
             onPressed: () {
               Navigator.of(context).pushNamed('/principal');

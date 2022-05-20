@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:openeducacao/feed/feed.dart';
+// import 'package:openeducacao/feed/feed.dart';
 import 'package:openeducacao/feed/feed_image.dart';
 // import 'package:openeducacao/feed/feed_image.dart';
 import 'package:openeducacao/feed/feed_youtube.dart';
@@ -18,58 +18,52 @@ class FeedPage extends StatefulWidget {
 class _FeedPageState extends State<FeedPage> {
   List<IFeed> feed = [];
 
-    String _search = '';
+  String _search = '';
   int _offset = 0;
 
-  Future<Map> _getSearch() async { // quem recebe tem que ser Futire
-    http.Response response;
 
-    if (_search == null) {
-      response = await http.get(Uri.parse('https://atividadeopenunifeob.000webhostapp.com/selvideo.php'));
-      print(response.body);
-    } else {
-      response = await http.get(Uri.parse(
-          'https://api.giphy.com/v1/gifs/search?api_key=iZ2YRjDG89SIZO8MN6k99BPwHNGlr54s&q=$_search&limit=19&offset=$_offset&rating=g&lang=en'));
-    }
-    Map resultado = json.decode(response.body);
-    print(resultado[0]["titulo"]);
-    
-    return resultado;
-  }
 
-  recebeDados(){
-    String text = '';
-    String url = '';
 
+  Future<Map> _mostraDados() async { // quem recebe tem que ser Futire
+  http.Response response;
+    response = await http.get(Uri.parse('https://atividadeopenunifeob.000webhostapp.com/selvideoprint.php'));
+    print("--------############################################################--------");
+    // print(json.decode(response.body));
+  // final data = response as Map;
+  //   final forecasts = data["forecasts"];
+    Map<dynamic, dynamic> a = json.decode(response.body);
+    print(a);
+
+    // print(a.length);
+    return a;
+    //print(response.body);
+    //Map<dynamic, dynamic> a = {"a":1};
+    //return(a);
   }
 
   @override
   void initState() {
     super.initState();
+    Future<Map> a = _mostraDados();
+
+    print(a);
+    // foreach
     feed.add(FeedYoutube(text: 'Youtube Vídeo', videoId: 'umhl2hakkcY'));
+    // foreach
 
-    feed.add(FeedImage( text: 'Como fazer clone do YOUTUBE', url: 'https://img.youtube.com/vi/umhl2hakkcY/0.jpg'));
-
-    feed.add(FeedImage( text: 'Como fazer clone do YOUTUBE', url: 'https://img.youtube.com/vi/Gm8QuYvOTwE/0.jpg'));
-
-    feed.add(FeedImage( text: 'Como fazer clone do YOUTUBE', url: 'https://img.youtube.com/vi/Gm8QuYvOTwE/0.jpg'));
-
+    // feed.add(FeedImage( text: 'Como fazer clone do YOUTUBE', url: 'https://img.youtube.com/vi/Gm8QuYvOTwE/0.jpg'));
 
   }
-
-  mostrarDetalhes(){
-
-  }
-
 
   @override
   Widget build(BuildContext context) {
+    
+
     return Padding(
             padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: GestureDetector(
               onTap: () {
-                
-                mostrarDetalhes();
+                // _mostraDados();
                 // Navigator.of(context).pushNamed('/detalhesvideo');
 
               },
@@ -80,8 +74,6 @@ class _FeedPageState extends State<FeedPage> {
                 itemBuilder: (context, index) => feed[index].render(),
               ),
         ),
-      
-      
     );
   }
 }
