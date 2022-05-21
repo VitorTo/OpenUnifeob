@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:openeducacao/pages/tela_instrucoes.dart';
 // import 'package:openeducacao/pages/info_videos.dart';
 import 'package:openeducacao/provider/google_sign_in.dart';
 import 'package:openeducacao/services/auth_service.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
         '/detalhesvideo': (BuildContext context) => DetalhesVideo(),
         '/authcheck': (BuildContext context) => AuthCheck(),
         '/login': (BuildContext context) => Loginpage(),
+        '/telainstrucoes': (BuildContext context) => TelaInstrucoes(),
         // "/infoVideo": (context) => InfoVideo(),
       },
     );

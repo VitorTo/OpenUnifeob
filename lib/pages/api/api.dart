@@ -9,8 +9,8 @@ class API {
     return http.get(Uri.parse(url));
   }
 
-  static Future getBusca() {
-    var url = baseUrl + "/selvideoprint.php";
+  static Future getBusca(busca) {
+    var url = baseUrl + "/selvideo.php?busca="+busca;
     return http.get(Uri.parse(url));
   }
 }

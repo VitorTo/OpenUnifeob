@@ -102,7 +102,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       ),
                       OutlinedButton.icon(
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/inicial');
+                          //tela conquistas
+                          Navigator.pushNamed(context, '/telainstrucoes');
                         },
                         label:
                             Text("Instruções", style: TextStyle(fontSize: 13)),
@@ -131,7 +132,9 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                                 size: 30,
                                 color: Color(0xff46AEF7),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                // buscar video no arquivo api => getBusca
+                              },
                             ),
                           ),
                         ),
