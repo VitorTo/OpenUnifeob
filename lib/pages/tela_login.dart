@@ -214,14 +214,34 @@ class _LoginpageState extends State<Loginpage> {
                     onPressed: () => setFormAction(!isLogin),
                     child: Text(toggleButton),
                   ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      final provider = Provider.of<GoogleSignInProvider>( context, listen: false);
-                      provider.googleLogin();
-                    },
-                    icon: FaIcon(FontAwesomeIcons.google),
-                    label: Text('Logar com Google'),
+                  TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/recuperar');
+                        },
+                        child: const Text("Recuperar Senha"),
+                      ),
+                      ElevatedButton.icon(
+                      onPressed: () {
+                        final provider = Provider.of<GoogleSignInProvider>(
+                            context,
+                            listen: false);
+                        provider.googleLogin();
+                      },
+                      icon: Padding(
+                      padding: const EdgeInsets.only(
+                            left: 70),
+                      child: FaIcon(FontAwesomeIcons.google),
+                    ),
+                    label: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 16.0, bottom: 16.0, right: 70, left: 0),
+                      child: Text(
+                        'Logar com Google',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
                   ),
+                  
                 ],
               ),
             ),

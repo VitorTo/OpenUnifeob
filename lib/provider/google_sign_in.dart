@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:openeducacao/pages/tela_login.dart';
 
 class GoogleSignInProvider extends ChangeNotifier {
   final googleSignIn = GoogleSignIn();
@@ -34,8 +35,10 @@ class GoogleSignInProvider extends ChangeNotifier {
 
   }
 
-  Future logout() async {
-    await googleSignIn.disconnect();
+  Future<void> logout() async {
+    // await googleSignIn.disconnect();
+    await googleSignIn.signOut();
     FirebaseAuth.instance.signOut();
+    Loginpage();
   }
 }

@@ -1,21 +1,18 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:openeducacao/parts/drawer_menu.dart';
 
+import 'package:flutter/material.dart';
+import 'package:openeducacao/parts/drawer_menu_email.dart';
 import '../feed/feed_youtube.dart';
 
-class TelaInstrucoes extends StatefulWidget {
+class TelaInstrucoesEmail extends StatefulWidget {
 
-  const TelaInstrucoes( {Key? key }) : super(key: key);
+  const TelaInstrucoesEmail( {Key? key }) : super(key: key);
   @override
-  State<TelaInstrucoes> createState() => _TelaInstrucoesState();
+  State<TelaInstrucoesEmail> createState() => _TelaInstrucoesEmailState();
 }
 
-class _TelaInstrucoesState extends State<TelaInstrucoes> {
+class _TelaInstrucoesEmailState extends State<TelaInstrucoesEmail> {
   @override
   Widget build(BuildContext context) {
-    final userGoogle = FirebaseAuth.instance.currentUser!;
-    final nomeUser = userGoogle.displayName!.split(" ");
 
     return Scaffold(
       appBar: AppBar(
@@ -40,8 +37,7 @@ class _TelaInstrucoesState extends State<TelaInstrucoes> {
         actions: [
           Container(
             alignment: Alignment.center,
-            child: userGoogle == null
-                ? Text(
+            child: Text(
                     'seu nome',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -49,14 +45,7 @@ class _TelaInstrucoesState extends State<TelaInstrucoes> {
                       fontWeight: FontWeight.bold,
                     ),
                   )
-                : Text(
-                    nomeUser[0],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                
           ),
           IconButton(
               onPressed: () {
@@ -64,13 +53,13 @@ class _TelaInstrucoesState extends State<TelaInstrucoes> {
               },
               icon: CircleAvatar(
                       radius: 20,
-                      backgroundImage: NetworkImage(userGoogle == null?"https://freesvg.org/img/abstract-user-flat-3.png":userGoogle.photoURL!),
+                      backgroundImage: NetworkImage("https://freesvg.org/img/abstract-user-flat-3.png"),
                       backgroundColor: Colors.black12,
                     )
                   ),
         ],
       ),
-      drawer: DrawerMenu(),
+      drawer: DrawerMenuEmail(),
       body: ListView(
         children: [
           Center(

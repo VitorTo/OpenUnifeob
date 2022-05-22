@@ -82,6 +82,9 @@ flutter:
     - assets/images/explorador.png
     - assets/images/desbravador.png
     - assets/images/aventureiro.png
+    - assets/images/explorador_card.png
+    - assets/images/desbravador_card.png
+    - assets/images/aventureiro_card.png
     - assets/images/back-img.png
     - assets/images/user.png
     - assets/images/inicial.png

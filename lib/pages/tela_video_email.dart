@@ -1,30 +1,26 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
-import 'package:openeducacao/parts/drawer_menu.dart';
-
+import 'package:openeducacao/parts/drawer_menu_email.dart';
 import '../feed/feed_youtube.dart';
-import '../feed/ifeed.dart';
 
-class TelaVideo extends StatefulWidget {
+class TelaVideoEmail extends StatefulWidget {
   String link;
   String titulo;
   String descricao;
 
-  TelaVideo(
+  TelaVideoEmail(
       {Key? key,
       required this.link,
       required this.titulo,
       required this.descricao})
       : super(key: key);
   @override
-  State<TelaVideo> createState() => _TelaVideoState();
+  State<TelaVideoEmail> createState() => _TelaVideoEmailState();
 }
 
-class _TelaVideoState extends State<TelaVideo> {
+class _TelaVideoEmailState extends State<TelaVideoEmail> {
   @override
   Widget build(BuildContext context) {
-    final userGoogle = FirebaseAuth.instance.currentUser!;
-    final nomeUser = userGoogle.displayName!.split(" ");
 
     return Scaffold(
       appBar: AppBar(
@@ -50,7 +46,7 @@ class _TelaVideoState extends State<TelaVideo> {
           Container(
               alignment: Alignment.center,
               child: Text(
-                userGoogle == null ? 'nome indefinido' : nomeUser[0],
+                'seu nome',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black87,
@@ -63,14 +59,14 @@ class _TelaVideoState extends State<TelaVideo> {
               },
               icon: CircleAvatar(
                 radius: 20,
-                backgroundImage: NetworkImage(userGoogle == null
-                    ? "https://freesvg.org/img/abstract-user-flat-3.png"
-                    : userGoogle.photoURL!),
+                backgroundImage: NetworkImage(
+                     "https://freesvg.org/img/abstract-user-flat-3.png"
+                    ),
                 backgroundColor: Colors.black12,
               )),
         ],
       ),
-      drawer: DrawerMenu(),
+      drawer: DrawerMenuEmail(),
       body: ListView(
         children: [
           Center(
@@ -157,5 +153,6 @@ class _TelaVideoState extends State<TelaVideo> {
         ],
       ),
     );
+    
   }
 }

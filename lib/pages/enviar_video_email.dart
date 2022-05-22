@@ -1,20 +1,16 @@
-// import 'dart:html';
 
-// import 'dart:ui';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:openeducacao/parts/drawer_menu.dart';
 import 'package:http/http.dart' as http;
+import 'package:openeducacao/parts/drawer_menu_email.dart';
 
-class EnviarVideo extends StatefulWidget {
-  const EnviarVideo({Key? key}) : super(key: key);
+class EnviarVideoEmail extends StatefulWidget {
+  const EnviarVideoEmail({Key? key}) : super(key: key);
 
   @override
-  _EnviarVideoState createState() => _EnviarVideoState();
+  _EnviarVideoEmailState createState() => _EnviarVideoEmailState();
 }
 
-class _EnviarVideoState extends State<EnviarVideo> {
+class _EnviarVideoEmailState extends State<EnviarVideoEmail> {
   final formKey = GlobalKey<FormState>();
   final titulo = TextEditingController();
   final descricao = TextEditingController();
@@ -28,19 +24,20 @@ class _EnviarVideoState extends State<EnviarVideo> {
     // TODO: implement initState
     super.initState();
     setFormAction(true);
-  }  
+  }
 
   insertVideo(titulo, descricao, link) async {
     // EXEMPLO: index.php?pnome=vitor&email=vitorteste@gmail.com&senha=122342
-    var url = Uri.parse("https://atividadeopenunifeob.000webhostapp.com/invideo.php");
-    await http.post(url, body: {'titulo': titulo, 'descricao': descricao, 'url': link});
+    var url =
+        Uri.parse("https://atividadeopenunifeob.000webhostapp.com/invideo.php");
+    await http.post(url,
+        body: {'titulo': titulo, 'descricao': descricao, 'url': link});
     //JOGAR ESSAS VARIAVEIS PARA TELA PRINCIPAL
   }
 
   setFormAction(bool acao) {
     setState(() {
       isVideo = acao;
-      
     });
   }
 
@@ -53,7 +50,9 @@ class _EnviarVideoState extends State<EnviarVideo> {
         Navigator.pop(context);
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar( content: Text('Seu Video foi enviado para aprovação com sucesso!')),
+          SnackBar(
+              content:
+                  Text('Seu Video foi enviado para aprovação com sucesso!')),
         );
       } catch (e) {
         setState(() => loading = false);
@@ -63,9 +62,6 @@ class _EnviarVideoState extends State<EnviarVideo> {
 
   @override
   Widget build(BuildContext context) {
-    final userGoogle = FirebaseAuth.instance.currentUser!;
-    final nomeUser = userGoogle.displayName!.split(" ");
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70,
@@ -90,7 +86,7 @@ class _EnviarVideoState extends State<EnviarVideo> {
           Container(
               alignment: Alignment.center,
               child: Text(
-                userGoogle == null ? 'Nome indefinido' : nomeUser[0],
+                'seu nome',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black87,
@@ -103,15 +99,14 @@ class _EnviarVideoState extends State<EnviarVideo> {
             },
             icon: CircleAvatar(
               radius: 20,
-              backgroundImage: NetworkImage(userGoogle == null
-                  ? "https://freesvg.org/img/abstract-user-flat-3.png"
-                  : userGoogle.photoURL!),
+              backgroundImage: NetworkImage(
+                  "https://freesvg.org/img/abstract-user-flat-3.png"),
               backgroundColor: Colors.black12,
             ),
           ),
         ],
       ),
-      drawer: DrawerMenu(),
+      drawer: DrawerMenuEmail(),
       body: ListView(
         children: [
           Center(
@@ -140,7 +135,7 @@ class _EnviarVideoState extends State<EnviarVideo> {
                       OutlinedButton.icon(
                         onPressed: () {
                           // Respond to button press
-                          Navigator.pushNamed(context, '/telainstrucoes');
+                          Navigator.pushNamed(context, '/telainstrucoesemail');
                         },
                         label:
                             Text("Instruções", style: TextStyle(fontSize: 13)),
@@ -178,102 +173,100 @@ class _EnviarVideoState extends State<EnviarVideo> {
                         child: Form(
                           key: formKey,
                           child: Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: 15.0,
-                            ),
-                            TextFormField(
-                              controller: titulo,
-                              decoration: const InputDecoration(
-                                labelText: 'Titulo',
-                                border: OutlineInputBorder(),
+                            children: <Widget>[
+                              SizedBox(
+                                height: 15.0,
                               ),
-                              keyboardType: TextInputType.text,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Informe o titulo do seu vídeo!';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 15.5,
-                            ),
-                            TextFormField(
-                              controller: descricao,
-                              decoration: const InputDecoration(
-                                labelText: 'Descrição',
-                                border: OutlineInputBorder(),
+                              TextFormField(
+                                controller: titulo,
+                                decoration: const InputDecoration(
+                                  labelText: 'Titulo',
+                                  border: OutlineInputBorder(),
+                                ),
+                                keyboardType: TextInputType.text,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Informe o titulo do seu vídeo!';
+                                  }
+                                  return null;
+                                },
                               ),
-                              keyboardType: TextInputType.text,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Informe a descrição do seu vídeo!';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 15.5,
-                            ),
-                            TextFormField(
-                              controller:link,
-                              decoration: const InputDecoration(
-                                labelText: 'URL do Vídeo do YouTube',
-                                border: OutlineInputBorder(),
+                              const SizedBox(
+                                height: 15.5,
                               ),
-                              keyboardType: TextInputType.url,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Informe o link do seu vídeo!';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 15.5,
-                            ),
-                            SizedBox(
-                              width: 360,
-                              height: 60,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  
+                              TextFormField(
+                                controller: descricao,
+                                decoration: const InputDecoration(
+                                  labelText: 'Descrição',
+                                  border: OutlineInputBorder(),
+                                ),
+                                keyboardType: TextInputType.text,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Informe a descrição do seu vídeo!';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(
+                                height: 15.5,
+                              ),
+                              TextFormField(
+                                controller: link,
+                                decoration: const InputDecoration(
+                                  labelText: 'URL do Vídeo do YouTube',
+                                  border: OutlineInputBorder(),
+                                ),
+                                keyboardType: TextInputType.url,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Informe o link do seu vídeo!';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(
+                                height: 15.5,
+                              ),
+                              SizedBox(
+                                width: 360,
+                                height: 60,
+                                child: ElevatedButton(
+                                  onPressed: () {
                                     if (isVideo) {
                                       video();
                                     }
-                                  
-                                },
-                                child: const Text(
-                                  "Enviar",
-                                  style: TextStyle(fontSize: 20),
+                                  },
+                                  child: const Text(
+                                    "Enviar",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 40,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(5, 0, 5, 20),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    'O que devo fazer depois de enviar o vídeo?',
-                                    style: TextStyle(
-                                      fontSize: 16.3,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                      'Para enviar seu video você precisa inserir esses campos abaixo e clicar no botão Enviar'),
-                                ],
+                              SizedBox(
+                                height: 40,
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(5, 0, 5, 20),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'O que devo fazer depois de enviar o vídeo?',
+                                      style: TextStyle(
+                                        fontSize: 16.3,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Text(
+                                        'Para enviar seu video você precisa inserir esses campos abaixo e clicar no botão Enviar'),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
                       ),
                       Column(
                         children: [
