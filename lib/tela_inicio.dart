@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:openeducacao/provider/google_sign_in.dart';
-import 'package:openeducacao/services/auth_service.dart';
-import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 
 class InicioPage extends StatefulWidget {
   const InicioPage({Key? key}) : super(key: key);

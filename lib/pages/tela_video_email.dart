@@ -112,11 +112,6 @@ class _TelaVideoEmailState extends State<TelaVideoEmail> {
                                             EdgeInsets.only(),
                                         child: Text(widget.descricao),
                                       ),
-                                      // Text(
-                                      //   'Vitor Gabriel', //nome do criador de conteudo
-                                      //   style: TextStyle(
-                                      //       fontWeight: FontWeight.bold),
-                                      // ),
                                     ],
                                   ),
                                 ],

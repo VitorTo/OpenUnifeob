@@ -1,20 +1,9 @@
-// import 'dart:html';
 
-// ignore_for_file: deprecated_member_use
-
-import 'dart:ui';
-
-// import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
+import 'package:openeducacao/pages/api/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:openeducacao/provider/google_sign_in.dart';
-import 'package:openeducacao/services/auth_service.dart';
-import 'package:openeducacao/pages/expansion_panel_list.dart';
 import 'package:openeducacao/pages/tela_perfil.dart';
 import 'package:openeducacao/parts/drawer_menu.dart';
-import 'package:openeducacao/parts/appbar_menu.dart';
-
 import 'api/build_list_view.dart';
 
 class TelaPrincipal extends StatefulWidget {
@@ -24,14 +13,17 @@ class TelaPrincipal extends StatefulWidget {
   _TelaPrincipalState createState() => _TelaPrincipalState();
 }
 
-
 class _TelaPrincipalState extends State<TelaPrincipal> {
+  String busca = '';
 
   @override
   Widget build(BuildContext context) {
-    final userGoogle = FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser! : null; //usa pra pegar imagem quando login google
+    final userGoogle = FirebaseAuth.instance.currentUser != null
+        ? FirebaseAuth.instance.currentUser!
+        : null; //usa pra pegar imagem quando login google
     // ignore: unnecessary_null_comparison
-    final nomeUser = userGoogle == null ? null : userGoogle.displayName!.split(" ");
+    final nomeUser =
+        userGoogle == null ? null : userGoogle.displayName!.split(" ");
 
     return Scaffold(
       appBar: AppBar(
@@ -53,31 +45,33 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         foregroundColor: Color(0xff46AEF7),
         actions: [
           Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-                    nomeUser == null ? 'seu nome': nomeUser[0],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                
-          ),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                nomeUser == null ? 'seu nome' : nomeUser[0],
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                ),
+              )),
           IconButton(
               onPressed: () {
-                Navigator.push( context, MaterialPageRoute(builder: (BuildContext context) => TelaPerfil()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => TelaPerfil()));
               },
               icon: CircleAvatar(
-                      radius: 20,
-                      backgroundImage: NetworkImage(userGoogle == null ? "https://freesvg.org/img/abstract-user-flat-3.png" : userGoogle.photoURL! ),//PODE COLOCAR DENTRO
-                      backgroundColor: Colors.black12,
-                    )),
+                radius: 20,
+                backgroundImage: NetworkImage(userGoogle == null
+                    ? "https://freesvg.org/img/abstract-user-flat-3.png"
+                    : userGoogle.photoURL!), //PODE COLOCAR DENTRO
+                backgroundColor: Colors.black12,
+              )),
         ],
       ),
       drawer: DrawerMenu(), // importado
-      body: 
-      ListView(
+      body: ListView(
         children: [
           Center(
             child: Container(
@@ -134,9 +128,15 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                               ),
                               onPressed: () {
                                 // buscar video no arquivo api => getBusca
+                                API.getUsers(busca);
                               },
                             ),
                           ),
+                          onChanged: (value) {
+                            setState(() {
+                              busca = value.trim();
+                            });
+                          },
                         ),
                       ),
                     ],
@@ -203,31 +203,29 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                             style: TextStyle(
                                 fontSize: 30, fontWeight: FontWeight.bold)),
                         SizedBox(
-                          width: 150,
-                        ),
-                        Text(
-                          'Filtrar',
-                          style: TextStyle(color: Color(0xff46AEF7)),
+                          width: 130,
                         ),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/principal');
+                            },
                             icon: Icon(
-                              Icons.filter_list,
+                              Icons.replay_outlined,
                               color: Color(0xff46AEF7),
-                            ))
+                            )),
                       ],
                     ),
                   ]),
                   SizedBox(
                     height: 20,
                   ),
-                  //CARD ESTÀ AQUI
-                  Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: BuildListView(),
-                  
+                  //  ==== CARD ESTÀ AQUI ====
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: BuildListView(),
                   ),
-                  // FeedPage(),
-                  //CARD ESTÀ AQUI
+                  //  ==== CARD ESTÀ AQUI ====
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 60, 20, 20),
                     child: Column(
@@ -274,4 +272,3 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     );
   }
 }
-

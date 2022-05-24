@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:openeducacao/parts/drawer_menu.dart';
 
 import '../feed/feed_youtube.dart';
-import '../feed/ifeed.dart';
 
 class TelaVideo extends StatefulWidget {
   String link;
@@ -107,7 +106,6 @@ class _TelaVideoState extends State<TelaVideo> {
                                     height: 15,
                                   ),
                                   Column(
-                                    // mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -116,11 +114,6 @@ class _TelaVideoState extends State<TelaVideo> {
                                             EdgeInsets.only(),
                                         child: Text(widget.descricao),
                                       ),
-                                      // Text(
-                                      //   'Vitor Gabriel', //nome do criador de conteudo
-                                      //   style: TextStyle(
-                                      //       fontWeight: FontWeight.bold),
-                                      // ),
                                     ],
                                   ),
                                 ],

@@ -125,26 +125,17 @@ class _TelaInstrucoesState extends State<TelaInstrucoes> {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                               child: Column(
-                                // mainAxisAlignment: MainAxisAlignment.start,
-                                      // crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
                                     height: 20,
                                   ),
                                   Column(
-                                      // mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Row(children: <Widget>[
                                         Expanded(child: Divider()),
 
                                       ]),
-                                      
-                                      // Text(
-                                      //   'Vitor Gabriel', //nome do criador de conteudo
-                                      //   style: TextStyle(
-                                      //       fontWeight: FontWeight.bold),
-                                      // ),
                                     ],
                                   ),
                                 ],

@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'api.dart';
 import 'package:flutter/material.dart';
 import 'package:openeducacao/pages/api/user.dart';
 import 'package:openeducacao/pages/tela_video_email.dart';
-import 'api.dart';
 
 class BuildListViewEmail extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class _BuildListViewEmailState extends State {
   var users = <User>[];
 
   _getUsers() {
-    API.getUsers().then((response) {
+    API.getUsers(null).then((response) {
       setState(() {
         Iterable list = json.decode(response.body);
         users = list.map((model) => User.fromJson(model)).toList();

@@ -1,7 +1,8 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:openeducacao/pages/tela_login.dart';
 
 class AuthException implements Exception {
   String message;
@@ -30,7 +31,6 @@ class AuthService extends ChangeNotifier {
   }
 
   _getUser() {
-    
     usuario = _auth.currentUser;
     notifyListeners();
       
@@ -70,9 +70,10 @@ class AuthService extends ChangeNotifier {
 
   }
 
-  logout() async{
+  Future<void> logout() async{
     await _auth.signOut();
     _getUser();
+    Loginpage();
   }
 
 }

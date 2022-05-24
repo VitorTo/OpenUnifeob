@@ -1,13 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:openeducacao/provider/google_sign_in.dart';
-import 'package:openeducacao/services/auth_service.dart';
-import 'package:openeducacao/parts/drawer_menu.dart';
-import 'package:openeducacao/pages/expansion_panel_list.dart';
-import 'package:openeducacao/pages/tela_perfil.dart';
-
 
 class MeuMenu extends StatelessWidget {
   @override

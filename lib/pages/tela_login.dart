@@ -1,5 +1,8 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:openeducacao/pages/api/usuario.dart';
 import 'package:openeducacao/provider/google_sign_in.dart';
 import 'package:openeducacao/services/auth_service.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +21,7 @@ class _LoginpageState extends State<Loginpage> {
   final email = TextEditingController();
   final senha = TextEditingController();
 
+  var usuario_id = <Usuario>[]; 
 
   bool isLogin = true;
   late String titulo;
@@ -53,8 +57,9 @@ class _LoginpageState extends State<Loginpage> {
   }
   insertUser(email, senha) async {
     // EXEMPLO: index.php?pnome=vitor&email=vitorteste@gmail.com&senha=122342
-    var url = Uri.parse("https://atividadeopenunifeob.000webhostapp.com/");
-    await http.post(url, body: {'pnome': email ,'email': email, 'senha': senha});
+    String pnome = "Vitor Gabriel de Souza";
+    var url = Uri.parse("http://openeducacao.online/api/inusuario.php");
+    await http.post(url, body: {'pnome': pnome ,'email': email, 'senha': senha});
     //JOGAR ESSAS VARIAVEIS PARA TELA PRINCIPAL
 
   }
@@ -63,6 +68,7 @@ class _LoginpageState extends State<Loginpage> {
     setState(() => loading = true);
     try {
       await context.read<AuthService>().login(email.text, senha.text);
+      
     } on AuthException catch (e) {
       setState(() => loading = false);
       ScaffoldMessenger.of(context)
@@ -99,7 +105,6 @@ class _LoginpageState extends State<Loginpage> {
             child: Form(
               key: formKey,
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 100, 20, 25),
@@ -164,13 +169,7 @@ class _LoginpageState extends State<Loginpage> {
                       },
                     ),
                   ),
-                  // if (formKey.currentState!.validate()) {
-                  //         if (isLogin) {
-                  //           login();
-                  //         } else {
-                  //           registrar();
-                  //         }
-                  //       },
+
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: ElevatedButton(

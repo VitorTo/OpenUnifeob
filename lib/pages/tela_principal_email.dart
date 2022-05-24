@@ -190,16 +190,16 @@ class _TelaPrincipalEmailState extends State<TelaPrincipalEmail> {
                         SizedBox(
                           width: 150,
                         ),
-                        Text(
-                          'Filtrar',
-                          style: TextStyle(color: Color(0xff46AEF7)),
-                        ),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              // API.getUsers(null); não deu certo de atualizar
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/principal');
+                            },
                             icon: Icon(
-                              Icons.filter_list,
+                              Icons.replay_outlined,
                               color: Color(0xff46AEF7),
-                            ))
+                            )),
                       ],
                     ),
                   ]),
@@ -211,7 +211,6 @@ class _TelaPrincipalEmailState extends State<TelaPrincipalEmail> {
                   child: BuildListViewEmail(),
                   
                   ),
-                  // FeedPage(),
                   //CARD ESTÀ AQUI
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 60, 20, 20),

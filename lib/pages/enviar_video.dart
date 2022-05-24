@@ -1,6 +1,3 @@
-// import 'dart:html';
-
-// import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +29,7 @@ class _EnviarVideoState extends State<EnviarVideo> {
 
   insertVideo(titulo, descricao, link) async {
     // EXEMPLO: index.php?pnome=vitor&email=vitorteste@gmail.com&senha=122342
-    var url = Uri.parse("https://atividadeopenunifeob.000webhostapp.com/invideo.php");
+    var url = Uri.parse("http://openeducacao.online/api/invideo.php");
     await http.post(url, body: {'titulo': titulo, 'descricao': descricao, 'url': link});
     //JOGAR ESSAS VARIAVEIS PARA TELA PRINCIPAL
   }
@@ -117,8 +114,6 @@ class _EnviarVideoState extends State<EnviarVideo> {
           Center(
             child: Container(
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   const SizedBox(
                     height: 30,
@@ -156,7 +151,6 @@ class _EnviarVideoState extends State<EnviarVideo> {
                   ),
                   Column(
                     children: [
-                      // Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0)),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
@@ -242,7 +236,6 @@ class _EnviarVideoState extends State<EnviarVideo> {
                                     if (isVideo) {
                                       video();
                                     }
-                                  
                                 },
                                 child: const Text(
                                   "Enviar",

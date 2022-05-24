@@ -1,16 +1,37 @@
 import'dart:async';
 import'package:http/http.dart'as http;
 
-const baseUrl="https://atividadeopenunifeob.000webhostapp.com";
+const baseUrl="http://openeducacao.online/api";
 
 class API {
-  static Future getUsers() async {
-     var url = await baseUrl + "/selvideoprint.php";
-    return http.get(Uri.parse(url));
+  static Future getUsers(busca) {
+    
+    if(busca == null) {
+
+      var url = baseUrl + "/selvideo.php";
+      return http.get(Uri.parse(url));
+      
+    } else {
+      
+      var url = baseUrl + "/selvideo.php?busca="+busca;
+      return http.get(Uri.parse(url));
+      
+    }
   }
 
-  static Future getBusca(busca) {
-    var url = baseUrl + "/selvideo.php?busca="+busca;
-    return http.get(Uri.parse(url));
+  static Future getUsuario(email) {
+    
+    if(email == null) {
+
+      return email;
+      
+    } else {
+      
+      var url = baseUrl + "/seliduser.php?email="+email;
+
+      return http.get(Uri.parse(url));
+      
+    }
   }
+
 }

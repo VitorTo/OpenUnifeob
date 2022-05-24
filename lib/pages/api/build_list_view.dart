@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'api.dart';
+import '../tela_video.dart';
 import 'package:flutter/material.dart';
 import 'package:openeducacao/pages/api/user.dart';
-import '../tela_video.dart';
-import 'api.dart';
 
 class BuildListView extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class _BuildListViewState extends State {
   var users = <User>[];
 
   _getUsers() {
-    API.getUsers().then((response) {
+    API.getUsers(null).then((response) {
       setState(() {
         Iterable list = json.decode(response.body);
         users = list.map((model) => User.fromJson(model)).toList();
@@ -31,7 +31,7 @@ class _BuildListViewState extends State {
   }
 
   @override
-  build(context) {
+   build(context) {
 
 
     return ListView.builder(
@@ -58,33 +58,32 @@ class _BuildListViewState extends State {
           children: <Widget>[
             Card(
               semanticContainer: true,
-              // clipBehavior: Clip.antiAliasWithSaveLayer,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               child: GestureDetector(
                 onTap: () {
                   mostrarDetalhes(users[index].link, users[index].titulo, users[index].descricao);
-                  // Navigator.of(context).pushNamed('/detalhesvideo');
+                  
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Image.network(urlCompleta),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.fromLTRB(10.0, 10, 10.0, 5),
                       child: Text(
-                        users[index].titulo,
+                        users[index].titulo.toUpperCase(),
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Text(users[index].descricao),
-                    Column(
-                      children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 10),
+                      child: Text(users[index].descricao.toLowerCase()),
+
+                    ),
                         SizedBox(
                           height: 5,
                         ),
-                      ],
-                    ),
                   ],
                 ),
               ),
